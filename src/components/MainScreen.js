@@ -1,34 +1,28 @@
-import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import Menu from './Menu';
-import { logout } from '../services/auth';
 
-const MainScreen = ({ setAuthenticated }) => {
-  const navigate = useNavigate();
+const MainScreen = () => {
+  const [userRole, setUserRole] = useState(null);
 
-  const handleLogout = () => {
-    logout(); // Remove o token do localStorage
-    setAuthenticated(false); // Atualiza o estado de autenticação
-    navigate('/login'); // Redireciona para a página de login
-  };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setUserRole(decoded.role);
+      } catch (error) {
+        console.error('Erro ao decodificar token:', error);
+        localStorage.removeItem('token');
+      }
+    }
+  }, []);
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
-        <h1>Bem-vindo ao Sistema</h1>
-        <button onClick={handleLogout} style={{ padding: '5px 10px' }}>
-          Sair
-        </button>
-      </div>
-      <Menu />
-      <div style={{ padding: '20px' }}>
-        <Routes>
-          <Route path="/categories" element={<h2>Página de Categorias</h2>} />
-          <Route path="/products" element={<h2>Página de Produtos</h2>} />
-          <Route path="/sales" element={<h2>Página de Vendas</h2>} />
-          <Route path="/" element={<p>Selecione uma opção no menu acima.</p>} />
-        </Routes>
-      </div>
+      <Menu userRole={userRole} />
+      <Outlet context={{ userRole }} /> {/* Passa o userRole para as rotas filhas */}
     </div>
   );
 };
