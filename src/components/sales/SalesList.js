@@ -4,7 +4,7 @@ import {
   Paper, Button, TextField, Box, IconButton
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
-import api from '../services/api';
+import api from '../../services/api';
 import SaleForm from './SaleForm';
 
 const SalesList = () => {

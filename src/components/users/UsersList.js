@@ -1,7 +1,7 @@
 // components/UsersList.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../services/api';
+import api from '../../services/api';
 import { useOutletContext } from 'react-router-dom';
 
 const UsersList = ( ) => {

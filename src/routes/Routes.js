@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Login from '../components/Login';
 import MainScreen from '../components/MainScreen';
-import UsersList from '../components/UsersList';
-import CategoriesList from '../components/CategoriesList';
-import ProductsList from '../components/ProductsList';
-import SalesList from '../components/SalesList';
+import UsersList from '../components/users/UsersList';
+import CategoriesList from '../components/categories/CategoriesList';
+import ProductsList from '../components/products/ProductsList';
+import SalesList from '../components/sales/SalesList';
 
 const Layout = ({ children, setAuthenticated }) => {
   const handleLogout = () => {
